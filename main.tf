@@ -1,9 +1,7 @@
 # configured aws provider with proper credentials
 provider "aws" {
   region    = "us-east-2"
-  shared_config_files      = ["/Users/austi/.aws/conf"]
-  shared_credentials_files = ["/Users/austi/.aws/credentials"]
-  profile                  = "austin"
+  profile   = "labake"
 }
 
 # Create a remote backend for your terraform 
@@ -12,8 +10,8 @@ terraform {
     bucket = "may-class-devops-austin"
     dynamodb_table = "app-state"
     key    = "LockID"
-    region = "us-east-1"
-    profile = "austin"
+    region = "us-east-2"
+    profile = "labake"
   }
 }
 
@@ -119,7 +117,7 @@ resource "aws_instance" "ec2_instance1" {
   instance_type          = "t2.small"
   subnet_id              = aws_default_subnet.default_az1.id
   vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
-  key_name               = "may_key"
+  key_name               = "ohio_key"
   user_data            = "${file("jenkins_install.sh")}"
 
   tags = {
@@ -132,7 +130,7 @@ resource "aws_instance" "ec2_instance2" {
   instance_type          = "t2.micro"
   subnet_id              = aws_default_subnet.default_az1.id
   vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
-  key_name               = "may_key"
+  key_name               = "ohio_key"
   user_data            = "${file("docker-install.sh")}"
 
   tags = {
